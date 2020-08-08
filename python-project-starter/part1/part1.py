@@ -13,7 +13,7 @@ def format_temperature(temp):
     Returns:
         A string contain the temperature and "degrees celcius."
     """
-    
+
 
 def convert_date(iso_string):
     d = datetime.strptime(iso_string, "%Y-%m-%dT%H:%M:%S%z")
@@ -58,8 +58,28 @@ def calculate_mean(total, num_items):
 
 def process_weather(forecast_file):
     with open("data/forecast_5days_a.json") as json_file:
-        forcast_a = json.load(json_file)
-    return (f" test")
+        forecast = json.load(json_file)
+
+    pass
+
+
+    import json 
+    with open("data/forecast_5days_a.json") as json_file:
+        forecast = json.load(json_file)
+    
+    print(forecast)
+
+    day_data = []
+    for keys, values in forecast.items():
+        print(forecast[2])
+
+    print(forecast)
+ 
+
+  
+
+
+
 
 
     """Converts raw weather data into meaningful text.
