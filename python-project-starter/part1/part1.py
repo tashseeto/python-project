@@ -4,6 +4,8 @@ from datetime import datetime
 DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
 
 def format_temperature(temp):
+    return f"{temp}{DEGREE_SYBMOL}"
+
     """Takes a temperature and returns it in string format with the degrees and celcius symbols.
     
     Args:
@@ -11,9 +13,12 @@ def format_temperature(temp):
     Returns:
         A string contain the temperature and "degrees celcius."
     """
-    return f"{temp}{DEGREE_SYBMOL}"
+    
 
 def convert_date(iso_string):
+    d = datetime.strptime(iso_string, "%Y-%m-%dT%H:%M:%S%z")
+    return d.strftime("%A %d %B %Y")
+
     """Converts and ISO formatted date into a human readable format.
     
     Args:
@@ -21,11 +26,13 @@ def convert_date(iso_string):
     Returns:
         A date formatted like: Weekday Date Month Year
     """
-    d = datetime.strptime(iso_string, "%Y-%m-%dT%H:%M:%S%z")
-    return d.strftime("%A %d %B %Y")
 
 
 def convert_f_to_c(temp_in_farenheit):
+    temp_in_farenheit = (temp_in_farenheit - 32) / 1.8
+    temp_in_farenheit = round(temp_in_farenheit, 1)
+    return(temp_in_farenheit)
+    
     """Converts an temperature from farenheit to celcius
 
     Args:
@@ -33,10 +40,11 @@ def convert_f_to_c(temp_in_farenheit):
     Returns:
         An integer representing a temperature in degrees celcius.
     """
-    pass
-
+    
 
 def calculate_mean(total, num_items):
+    return round(total / num_items, 1)
+    
     """Calculates the mean.
     
     Args:
@@ -45,10 +53,15 @@ def calculate_mean(total, num_items):
     Returns:
         An integer representing the mean of the numbers.
     """
-    pass
+    
 
 
 def process_weather(forecast_file):
+    with open("data/forecast_5days_a.json") as json_file:
+        forcast_a = json.load(json_file)
+    return (f" test")
+
+
     """Converts raw weather data into meaningful text.
 
     Args:
@@ -57,7 +70,6 @@ def process_weather(forecast_file):
     Returns:
         A string containing the processed and formatted weather data.
     """
-    pass
 
 
 if __name__ == "__main__":
