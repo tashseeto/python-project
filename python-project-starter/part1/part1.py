@@ -63,11 +63,6 @@ def process_weather(forecast_file):
     pass
 
 
-    import json 
-    with open("data/forecast_5days_a.json") as json_file:
-        forecast = json.load(json_file)
-    
-    print(forecast)
 
     day_data = []
     for keys, values in forecast.items():

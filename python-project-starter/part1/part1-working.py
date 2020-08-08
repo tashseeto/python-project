@@ -5,19 +5,16 @@ with open("data/forecast_5days_a.json") as json_file:
 # print(forecast)
 
 day_data = []
-for keys, values in forecast.items():
-    print(values)
-
-
-#     for dailyforecast, daily_data in values:
-#         for date, date_data in daily_data:
-#             day_data.append(daily_data)
-            
-
+for category, categorydata in forecast.items():
+    if category == "DailyForecasts":
+        day_data.append(categorydata)
 # print(day_data)
-
-
-  # print(day_data)
-        # day_data.append(keys)
-        # print(day_data)
-        # print(values)
+  
+daily_info = {}
+for days in day_data:
+    # print(days[0], days[1], days[2], days[3], days[4])
+    # this prints all dictionaries in list
+    for key in days[0]:
+        # print(key)
+        # daily_info.append(key)
+print(daily_info)
