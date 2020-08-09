@@ -16,42 +16,57 @@ for days in day_data:
     # print(days) prints all days
     for dates in days:
         # print(dates) prints days separately
-        for keys in dates:
-            if keys == "Date":
-                attach = dates[keys]
-                date_ISO.append(attach)   
-print(date_ISO)
-
-
-   
-
-
-
-
-
-
-# count = 0
-# for days, values in day_data[0][0]:
-#     if days == "Date":
-#         date_ISO.append(values)
-#         count += 1
-    # this prints all dates
-    
+        for categories in dates:
+            # relates to key in date dictionary
+            if categories == "Date":
+                attach = dates[categories]
+#                 date_ISO.append(attach)   
 # print(date_ISO)
-    
-    # for key in days[0]:
-    #     if key == "Date":
-    #         date_ISO.append(days[0][key])
 
-# #         elif key in days[1]:
-#             if key == "Date":
-#                 date_ISO.append(days[1][key])
+min_temps = []
+for days in day_data:
+    # print(days) prints all days
+    for dates in days:
+        # print(dates) prints days separately
+        for categories in dates:
+            # relates to key in date dictionary
+                if categories == "Temperature":
+                    # print(dates[categories])
+                    # prints both min and max dics
+                        # for temp in dates[categories]:
+                        # print(dates[categories][temp])
+                        # prints the inner dict with values
+                    for temp in dates[categories]:
+                        if temp == "Minimum":
+                            # print(dates[categories][temp])
+                            # print the min : inner dict values
+                            for values in dates[categories][temp]:
+                                # print(dates[categories][temp][values])
+                                # prints only the values of the mini inner dic
+                                if values == "Value":
+                                    # print(dates[categories][temp][values])
+                                    # prints only the first value
+                                    attach = dates[categories][temp][values]
+                                    min_temps.append(attach)
+# print(min_temps)
+                    
+max_temps = []
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Temperature":
+                    for temp in dates[categories]:
+                        if temp == "Maximum":
+                            for values in dates[categories][temp]:
+                                if values == "Value":
+                                    attach = dates[categories][temp][values]
+                                    max_temps.append(attach)
+print(max_temps)
+                    
+                    
 
-#         # print(key, days[0][key])
-# print(date_ISO)
-            # above prints keys and values for fri 19 yippee!
 
-# , days[1], days[2], days[3], days[4]
+
 
 
 
