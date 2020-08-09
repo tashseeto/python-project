@@ -72,18 +72,14 @@ for days in day_data:
                                     attach = dates[categories][temp][values]
                                     min_temps.append(attach)
 # print(min_temps)
-# avelowtemp = []
-# total = 0
-# for temp in min_temps:
-#     total += temp
-    
-#     lowtemp.append(sumtotal)
-# print(lowtemp)
 
-#     calculate_mean(total, num_items):
-#     return round(total / num_items, 1)
+lowtempdic = {}         
 
-
+keys = min_temps
+values = date_ISO
+zip_obj = zip(keys, values)
+lowtempdic = dict(zip_obj)
+# print(lowtempdic)
 
 max_temps = []
 for days in day_data:
@@ -96,8 +92,21 @@ for days in day_data:
                                 if values == "Value":
                                     attach = dates[categories][temp][values]
                                     max_temps.append(attach)
-# print(max_temps)
-                    
+print(max_temps)
+
+hightempdic = {}
+
+keys = max_temps 
+values = date_ISO
+zip_obj = zip(keys, values)
+hightempdic = dict(zip_obj)
+print(hightempdic)
+
+for key in hightempdic:
+    print(hightempdic[key])
+
+
+
 daytime = []             
 for days in day_data:
     for dates in days:
@@ -153,7 +162,7 @@ for days in day_data:
                             nighttime_rain.append(attach)
 # print(nighttime_rain)
 
-summary = (f"{len(min_temps)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on xx.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on xx.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is xx.\n\n")
+summary = (f"{len(min_temps)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on xx.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on xx.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is .\n\n")
 
 day1 = (f"-------- {convert_date(date_ISO[0])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[0]))}\nMaxiumum Temperature: {format_temperature(convert_f_to_c(max_temps[0]))}\nDaytime: {daytime[0]}\n      Chance of rain:  {daytime_rain[0]}%\nNighttime: {nighttime[0]}\n      Chance of rain:  {nighttime_rain[0]}%\n\n")
 # print(day1)
