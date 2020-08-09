@@ -57,123 +57,128 @@ def calculate_mean(total, num_items):
 
 
 def process_weather(forecast_file):
-    with open("data/forecast_5days_a.json") as json_file:
+    with open(forecast_file) as json_file:
         forecast = json.load(json_file)
 
-    pass
+        day_data = []
+        for category, categorydata in forecast.items():
+            if category == "DailyForecasts":
+                day_data.append(categorydata)
+        # print(day_data)
+
+        
+        date_ISO = []
+        for days in day_data:
+            for dates in days:
+                for categories in dates:
+                    if categories == "Date":
+                        attach = dates[categories]
+                        date_ISO.append(attach)
+        # print(date_ISO)
 
 
-day_data = []
-for category, categorydata in forecast.items():
-    if category == "DailyForecasts":
-        day_data.append(categorydata)
-# print(day_data)
-
- 
-date_ISO = []
-for days in day_data:
-    for dates in days:
-        for categories in dates:
-            if categories == "Date":
-                attach = dates[categories]
-# print(date_ISO)
+        min_temps = []
+        for days in day_data:
+            for dates in days:
+                for categories in dates:
+                        if categories == "Temperature":
+                            for temp in dates[categories]:
+                                if temp == "Minimum":
+                                    for values in dates[categories][temp]:
+                                        if values == "Value":
+                                            attach = dates[categories][temp][values]
+                                            min_temps.append(attach)
+        # print(min_temps)
 
 
-min_temps = []
-for days in day_data:
-    for dates in days:
-        for categories in dates:
-                if categories == "Temperature":
-                    for temp in dates[categories]:
-                        if temp == "Minimum":
-                            for values in dates[categories][temp]:
-                                if values == "Value":
-                                    attach = dates[categories][temp][values]
-                                    min_temps.append(attach)
-# print(min_temps)
+        max_temps = []
+        for days in day_data:
+            for dates in days:
+                for categories in dates:
+                        if categories == "Temperature":
+                            for temp in dates[categories]:
+                                if temp == "Maximum":
+                                    for values in dates[categories][temp]:
+                                        if values == "Value":
+                                            attach = dates[categories][temp][values]
+                                            max_temps.append(attach)
+        # print(max_temps)
 
 
-max_temps = []
-for days in day_data:
-    for dates in days:
-        for categories in dates:
-                if categories == "Temperature":
-                    for temp in dates[categories]:
-                        if temp == "Maximum":
-                            for values in dates[categories][temp]:
-                                if values == "Value":
-                                    attach = dates[categories][temp][values]
-                                    max_temps.append(attach)
-# print(max_temps)
+        daytime = []             
+        for days in day_data:
+            for dates in days:
+                for categories in dates:
+                        if categories == "Day":
+                            for key in dates[categories]:
+                                if key == "LongPhrase":
+                                    attach = dates[categories][key]
+                                    daytime.append(attach)
+        # print(daytime)
 
 
-daytime = []             
-for days in day_data:
-    for dates in days:
-        for categories in dates:
-                if categories == "Day":
-                    for key in dates[categories]:
-                        if key == "LongPhrase":
-                            attach = dates[categories][key]
-                            daytime.append(attach)
-# print(daytime)
+        daytime_rain = []             
+        for days in day_data:
+            for dates in days:
+                for categories in dates:
+                        if categories == "Day":
+                            for key in dates[categories]:
+                                if key == "RainProbability":
+                                    attach = dates[categories][key]
+                                    daytime_rain.append(attach)
+        # print(daytime_rain)
 
 
-daytime_rain = []             
-for days in day_data:
-    for dates in days:
-        for categories in dates:
-                if categories == "Day":
-                    for key in dates[categories]:
-                        if key == "RainProbability":
-                            attach = dates[categories][key]
-                            daytime_rain.append(attach)
-# print(daytime_rain)
+        nighttime = []             
+        for days in day_data:
+            for dates in days:
+                for categories in dates:
+                        if categories == "Night":
+                            for key in dates[categories]:
+                                if key == "LongPhrase":
+                                    attach = dates[categories][key]
+                                    nighttime.append(attach)
+        # print(nighttime)
 
 
-nighttime = []             
-for days in day_data:
-    for dates in days:
-        for categories in dates:
-                if categories == "Night":
-                    for key in dates[categories]:
-                        if key == "LongPhrase":
-                            attach = dates[categories][key]
-                            nighttime.append(attach)
-# print(nighttime)
+        nighttime_rain = []             
+        for days in day_data:
+            for dates in days:
+                for categories in dates:
+                        if categories == "Night":
+                            for key in dates[categories]:
+                                if key == "RainProbability":
+                                    attach = dates[categories][key]
+                                    nighttime_rain.append(attach)
+        # print(nighttime_rain)
 
+        summary = "5 Day Overview\n    The lowest temperature will be {}, and will occur on {}.\n    The highest temperature will be {}, and will occur on {}.\n    Teh average low this week is {}.\n    The average high this week is {}.\n\n"
 
-nighttime_rain = []             
-for days in day_data:
-    for dates in days:
-        for categories in dates:
-                if categories == "Night":
-                    for key in dates[categories]:
-                        if key == "RainProbability":
-                            attach = dates[categories][key]
-                            nighttime_rain.append(attach)
-# print(nighttime_rain)
+        day1 = (f"-------- {convert_date(date_ISO[0])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[0]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[0]))}\nDaytime: {daytime[0]}\n    Chance of rain:  {daytime_rain[0]}%\nNighttime: {nighttime[0]}\n    Chance of rain:  {nighttime_rain[0]}%\n\n")
 
- 
+        day2 = (f"-------- {convert_date(date_ISO[1])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[1]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[1]))}\nDaytime: {daytime[1]}\n    Chance of rain:  {daytime_rain[1]}%\nNighttime: {nighttime[1]}\n    Chance of rain:  {nighttime_rain[1]}%\n\n")
 
-  
+        day3 = (f"-------- {convert_date(date_ISO[2])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[2]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[2]))}\nDaytime: {daytime[2]}\n    Chance of rain:  {daytime_rain[2]}%\nNighttime: {nighttime[2]}\n    Chance of rain:  {nighttime_rain[2]}%\n\n")
 
+        day4 = (f"-------- {convert_date(date_ISO[3])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[3]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[3]))}\nDaytime: {daytime[3]}\n    Chance of rain:  {daytime_rain[3]}%\nNighttime: {nighttime[3]}\n    Chance of rain:  {nighttime_rain[3]}%\n\n")
 
+        day5 = (f"-------- {convert_date(date_ISO[4])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[4]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[4]))}\nDaytime: {daytime[4]}\n    Chance of rain:  {daytime_rain[4]}%\nNighttime: {nighttime[4]}\n    Chance of rain:  {nighttime_rain[4]}%\n\n")
+        
+        #  """Converts raw weather data into meaningful text.
 
+        # Args:
+        #     forecast_file: A string representing the file path to a file
+        #         containing raw weather data.
+        # Returns:
+        #     A string containing the processed and formatted weather data.
+        # """
 
+        alldays = summary + day1 + day2 + day3 + day4 + day5
 
-    """Converts raw weather data into meaningful text.
+        return alldays
 
-    Args:
-        forecast_file: A string representing the file path to a file
-            containing raw weather data.
-    Returns:
-        A string containing the processed and formatted weather data.
-    """
-
-
-if __name__ == "__main__":
-    print(process_weather("data/forecast_5days_a.json"))
+        if __name__ == "__main__":
+            print(process_weather("data/forecast_5days_a.json"))
 
 
 
