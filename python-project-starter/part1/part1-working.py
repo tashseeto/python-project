@@ -61,29 +61,59 @@ for days in day_data:
                                 if values == "Value":
                                     attach = dates[categories][temp][values]
                                     max_temps.append(attach)
-print(max_temps)
+# print(max_temps)
                     
-                    
+daytime = []             
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Day":
+                    for key in dates[categories]:
+                        if key == "LongPhrase":
+                            # print(dates[categories][key])
+                            # prints the longphrase description
+                            attach = dates[categories][key]
+                            daytime.append(attach)
+# print(daytime)
+
+
+daytime_rain = []             
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Day":
+                    for key in dates[categories]:
+                        if key == "RainProbability":
+                            # print(dates[categories][key])
+                            # prints the longphrase description
+                            attach = dates[categories][key]
+                            daytime_rain.append(attach)
+# print(daytime_rain)
 
 
 
+nighttime = []             
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Night":
+                    for key in dates[categories]:
+                        if key == "LongPhrase":
+                            # print(dates[categories][key])
+                            # prints the longphrase description
+                            attach = dates[categories][key]
+                            nighttime.append(attach)
+# print(nighttime)
 
-
-
-
-
-
-    # print(days[0])
-    #  days[1], days[2], days[3], days[4])
-    # this prints all dictionaries in list
-
-    # for keys in days[0]:
-    #     print (keys)
-    #     above prints the keys for Fri 19
-
-    # for values in days[0]:
-    #     print(days[0][values])
-        # above prints values for Fri 19
-        
-
-# print(daily_info)
+nighttime_rain = []             
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Night":
+                    for key in dates[categories]:
+                        if key == "RainProbability":
+                            # print(dates[categories][key])
+                            # prints the longphrase description
+                            attach = dates[categories][key]
+                            nighttime_rain.append(attach)
+# print(nighttime_rain)
