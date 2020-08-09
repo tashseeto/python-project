@@ -63,12 +63,97 @@ def process_weather(forecast_file):
     pass
 
 
+day_data = []
+for category, categorydata in forecast.items():
+    if category == "DailyForecasts":
+        day_data.append(categorydata)
+# print(day_data)
 
-    day_data = []
-    for keys, values in forecast.items():
-        print(forecast[2])
+ 
+date_ISO = []
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+            if categories == "Date":
+                attach = dates[categories]
+# print(date_ISO)
 
-    print(forecast)
+
+min_temps = []
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Temperature":
+                    for temp in dates[categories]:
+                        if temp == "Minimum":
+                            for values in dates[categories][temp]:
+                                if values == "Value":
+                                    attach = dates[categories][temp][values]
+                                    min_temps.append(attach)
+# print(min_temps)
+
+
+max_temps = []
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Temperature":
+                    for temp in dates[categories]:
+                        if temp == "Maximum":
+                            for values in dates[categories][temp]:
+                                if values == "Value":
+                                    attach = dates[categories][temp][values]
+                                    max_temps.append(attach)
+# print(max_temps)
+
+
+daytime = []             
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Day":
+                    for key in dates[categories]:
+                        if key == "LongPhrase":
+                            attach = dates[categories][key]
+                            daytime.append(attach)
+# print(daytime)
+
+
+daytime_rain = []             
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Day":
+                    for key in dates[categories]:
+                        if key == "RainProbability":
+                            attach = dates[categories][key]
+                            daytime_rain.append(attach)
+# print(daytime_rain)
+
+
+nighttime = []             
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Night":
+                    for key in dates[categories]:
+                        if key == "LongPhrase":
+                            attach = dates[categories][key]
+                            nighttime.append(attach)
+# print(nighttime)
+
+
+nighttime_rain = []             
+for days in day_data:
+    for dates in days:
+        for categories in dates:
+                if categories == "Night":
+                    for key in dates[categories]:
+                        if key == "RainProbability":
+                            attach = dates[categories][key]
+                            nighttime_rain.append(attach)
+# print(nighttime_rain)
+
  
 
   
