@@ -1,8 +1,8 @@
 import json 
 with open("data/forecast_5days_a.json") as json_file:
     forecast = json.load(json_file)
-
 # print(forecast)
+
 
 day_data = []
 for category, categorydata in forecast.items():
@@ -10,12 +10,19 @@ for category, categorydata in forecast.items():
         day_data.append(categorydata)
 # print(day_data)
 
-
  
 date_ISO = []
-count = 0
-for days in day_data[0:4]:
-    print(days)
+for days in day_data:
+    # print(days) prints all days
+    for dates in days:
+        # print(dates) prints days separately
+        for keys in dates:
+            if keys == "Date":
+                attach = dates[keys]
+                date_ISO.append(attach)   
+print(date_ISO)
+
+
    
 
 
