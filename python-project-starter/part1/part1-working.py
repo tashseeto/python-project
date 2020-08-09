@@ -16,7 +16,8 @@ def convert_f_to_c(temp_in_farenheit):
     temp_in_farenheit = round(temp_in_farenheit, 1)
     return(temp_in_farenheit)
 
-
+def calculate_mean(total, num_items):
+    return round(total / num_items, 1)
 
 
 import json 
@@ -70,7 +71,18 @@ for days in day_data:
                                     # prints only the first value
                                     attach = dates[categories][temp][values]
                                     min_temps.append(attach)
-# # print(min_temps)
+# print(min_temps)
+# avelowtemp = []
+# total = 0
+# for temp in min_temps:
+#     total += temp
+    
+#     lowtemp.append(sumtotal)
+# print(lowtemp)
+
+#     calculate_mean(total, num_items):
+#     return round(total / num_items, 1)
+
 
 
 max_temps = []
@@ -141,21 +153,19 @@ for days in day_data:
                             nighttime_rain.append(attach)
 # print(nighttime_rain)
 
-
-
-
+summary = (f"{len(min_temps)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on xx.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on xx.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is xx.\n\n")
 
 day1 = (f"-------- {convert_date(date_ISO[0])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[0]))}\nMaxiumum Temperature: {format_temperature(convert_f_to_c(max_temps[0]))}\nDaytime: {daytime[0]}\n      Chance of rain:  {daytime_rain[0]}%\nNighttime: {nighttime[0]}\n      Chance of rain:  {nighttime_rain[0]}%\n\n")
-print(day1)
+# print(day1)
 
 day2 = (f"-------- {convert_date(date_ISO[1])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[1]))}\nMaxiumum Temperature: {format_temperature(convert_f_to_c(max_temps[1]))}\nDaytime: {daytime[1]}\n      Chance of rain:  {daytime_rain[1]}%\nNighttime: {nighttime[1]}\n      Chance of rain:  {nighttime_rain[1]}%\n\n")
-print(day2)
+# print(day2)
 
 day3 = (f"-------- {convert_date(date_ISO[2])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[2]))}\nMaxiumum Temperature: {format_temperature(convert_f_to_c(max_temps[2]))}\nDaytime: {daytime[1]}\n      Chance of rain:  {daytime_rain[2]}%\nNighttime: {nighttime[2]}\n      Chance of rain:  {nighttime_rain[2]}%\n\n")
-print(day3)
+# print(day3)
 
 day4 = (f"-------- {convert_date(date_ISO[3])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[3]))}\nMaxiumum Temperature: {format_temperature(convert_f_to_c(max_temps[3]))}\nDaytime: {daytime[3]}\n      Chance of rain:  {daytime_rain[3]}%\nNighttime: {nighttime[3]}\n      Chance of rain:  {nighttime_rain[3]}%\n\n")
-print(day4)
+# print(day4)
 
 day5 = (f"-------- {convert_date(date_ISO[4])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[4]))}\nMaxiumum Temperature: {format_temperature(convert_f_to_c(max_temps[4]))}\nDaytime: {daytime[4]}\n      Chance of rain:  {daytime_rain[4]}%\nNighttime: {nighttime[4]}\n      Chance of rain:  {nighttime_rain[4]}%\n\n")
-print(day5)
+# print(day5)

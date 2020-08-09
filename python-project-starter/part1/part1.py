@@ -64,7 +64,6 @@ def process_weather(forecast_file):
         for category, categorydata in forecast.items():
             if category == "DailyForecasts":
                 day_data.append(categorydata)
-        # print(day_data)
 
         
         date_ISO = []
@@ -74,7 +73,6 @@ def process_weather(forecast_file):
                     if categories == "Date":
                         attach = dates[categories]
                         date_ISO.append(attach)
-        # print(date_ISO)
 
 
         min_temps = []
@@ -88,7 +86,6 @@ def process_weather(forecast_file):
                                         if values == "Value":
                                             attach = dates[categories][temp][values]
                                             min_temps.append(attach)
-        # print(min_temps)
 
 
         max_temps = []
@@ -102,7 +99,6 @@ def process_weather(forecast_file):
                                         if values == "Value":
                                             attach = dates[categories][temp][values]
                                             max_temps.append(attach)
-        # print(max_temps)
 
 
         daytime = []             
@@ -114,7 +110,6 @@ def process_weather(forecast_file):
                                 if key == "LongPhrase":
                                     attach = dates[categories][key]
                                     daytime.append(attach)
-        # print(daytime)
 
 
         daytime_rain = []             
@@ -126,7 +121,6 @@ def process_weather(forecast_file):
                                 if key == "RainProbability":
                                     attach = dates[categories][key]
                                     daytime_rain.append(attach)
-        # print(daytime_rain)
 
 
         nighttime = []             
@@ -138,7 +132,6 @@ def process_weather(forecast_file):
                                 if key == "LongPhrase":
                                     attach = dates[categories][key]
                                     nighttime.append(attach)
-        # print(nighttime)
 
 
         nighttime_rain = []             
@@ -150,9 +143,9 @@ def process_weather(forecast_file):
                                 if key == "RainProbability":
                                     attach = dates[categories][key]
                                     nighttime_rain.append(attach)
-        # print(nighttime_rain)
 
-        summary = "5 Day Overview\n    The lowest temperature will be {}, and will occur on {}.\n    The highest temperature will be {}, and will occur on {}.\n    Teh average low this week is {}.\n    The average high this week is {}.\n\n"
+
+        summary = (f"{len(min_temps)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on xx.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on xx.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is {format_temperature(convert_f_to_c(calculate_mean(sum(max_temps),len(max_temps))))}.\n\n")
 
         day1 = (f"-------- {convert_date(date_ISO[0])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[0]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[0]))}\nDaytime: {daytime[0]}\n    Chance of rain:  {daytime_rain[0]}%\nNighttime: {nighttime[0]}\n    Chance of rain:  {nighttime_rain[0]}%\n\n")
 
@@ -163,13 +156,14 @@ def process_weather(forecast_file):
         day4 = (f"-------- {convert_date(date_ISO[3])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[3]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[3]))}\nDaytime: {daytime[3]}\n    Chance of rain:  {daytime_rain[3]}%\nNighttime: {nighttime[3]}\n    Chance of rain:  {nighttime_rain[3]}%\n\n")
 
         day5 = (f"-------- {convert_date(date_ISO[4])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[4]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[4]))}\nDaytime: {daytime[4]}\n    Chance of rain:  {daytime_rain[4]}%\nNighttime: {nighttime[4]}\n    Chance of rain:  {nighttime_rain[4]}%\n\n")
+    
         
         #  """Converts raw weather data into meaningful text.
 
         # Args:
         #     forecast_file: A string representing the file path to a file
         #         containing raw weather data.
-        # Returns:
+        # Returns:∫
         #     A string containing the processed and formatted weather data.
         # """
 
