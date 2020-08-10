@@ -103,6 +103,16 @@ def process_weather(forecast_file):
 
 
         counter = 0
+        formatted_mintemps = []
+        while counter < len(day_data):
+            counter += 1
+            for temps in min_temps:
+                convert = format_temperature(convert_f_to_c(temps))
+                formatted_mintemps.append(convert)
+        # print(formatted_mintemps)
+
+
+        counter = 0
         max_temps = []
         while counter < len(day_data):
             counter += 1 
@@ -125,6 +135,16 @@ def process_weather(forecast_file):
         zip_obj = zip(keys, values)
         hightempdic = dict(zip_obj)
         MaxDictVal = max(hightempdic, key=hightempdic.get)
+
+
+        counter = 0
+        formatted_maxtemps = []
+        while counter < len(day_data):
+            counter += 1
+            for temps in max_temps:
+                convert = format_temperature(convert_f_to_c(temps))
+                formatted_maxtemps.append(convert)
+        # print(formatted_maxtemps)
 
 
         counter = 0
