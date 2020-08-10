@@ -73,7 +73,7 @@ def process_weather(forecast_file):
                     for dates in days:
                         for categories in dates:
                             if categories == "Date":
-                                attach = dates[categories]
+                                attach = convert_date(dates[categories])
                                 date_ISO.append(attach)
 
 
@@ -89,10 +89,10 @@ def process_weather(forecast_file):
                                     if temp == "Minimum":
                                         for values in dates[categories][temp]:
                                             if values == "Value":
-                                                attach = dates[categories][temp][values]
+                                                attach = format_temperature(convert_f_to_c(dates[categories][temp][values]))
                                                 min_temps.append(attach)
 
-
+        
         lowtempdic = {}         
 
         keys = date_ISO
@@ -114,7 +114,7 @@ def process_weather(forecast_file):
                                     if temp == "Maximum":
                                         for values in dates[categories][temp]:
                                             if values == "Value":
-                                                attach = dates[categories][temp][values]
+                                                attach = format_temperature(convert_f_to_c(dates[categories][temp][values]))
                                                 max_temps.append(attach)
 
 
@@ -125,6 +125,7 @@ def process_weather(forecast_file):
         zip_obj = zip(keys, values)
         hightempdic = dict(zip_obj)
         MaxDictVal = max(hightempdic, key=hightempdic.get)
+
 
         counter = 0
         daytime = []         
