@@ -88,6 +88,15 @@ def process_weather(forecast_file):
                                             min_temps.append(attach)
 
 
+        lowtempdic = {}         
+
+        keys = date_ISO
+        values = min_temps
+        zip_obj = zip(keys, values)
+        lowtempdic = dict(zip_obj)
+        MinDictVal = min(lowtempdic, key=lowtempdic.get)
+
+
         max_temps = []
         for days in day_data:
             for dates in days:
@@ -99,6 +108,15 @@ def process_weather(forecast_file):
                                         if values == "Value":
                                             attach = dates[categories][temp][values]
                                             max_temps.append(attach)
+
+
+        hightempdic = {}
+
+        keys = date_ISO
+        values = max_temps
+        zip_obj = zip(keys, values)
+        hightempdic = dict(zip_obj)
+        MaxDictVal = max(hightempdic, key=hightempdic.get)
 
 
         daytime = []             
@@ -145,7 +163,7 @@ def process_weather(forecast_file):
                                     nighttime_rain.append(attach)
 
 
-        summary = (f"{len(min_temps)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on xx.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on xx.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is {format_temperature(convert_f_to_c(calculate_mean(sum(max_temps),len(max_temps))))}.\n\n")
+        summary = (f"{len(min_temps)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on {convert_date(MinDictVal)}.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on {convert_date(MaxDictVal)}.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is {format_temperature(convert_f_to_c(calculate_mean(sum(max_temps),len(max_temps))))}.\n\n")
 
         day1 = (f"-------- {convert_date(date_ISO[0])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[0]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[0]))}\nDaytime: {daytime[0]}\n    Chance of rain:  {daytime_rain[0]}%\nNighttime: {nighttime[0]}\n    Chance of rain:  {nighttime_rain[0]}%\n\n")
 
@@ -156,6 +174,14 @@ def process_weather(forecast_file):
         day4 = (f"-------- {convert_date(date_ISO[3])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[3]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[3]))}\nDaytime: {daytime[3]}\n    Chance of rain:  {daytime_rain[3]}%\nNighttime: {nighttime[3]}\n    Chance of rain:  {nighttime_rain[3]}%\n\n")
 
         day5 = (f"-------- {convert_date(date_ISO[4])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[4]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[4]))}\nDaytime: {daytime[4]}\n    Chance of rain:  {daytime_rain[4]}%\nNighttime: {nighttime[4]}\n    Chance of rain:  {nighttime_rain[4]}%\n\n")
+
+        # day6 = (f"-------- {convert_date(date_ISO[5])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[5]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[5]))}\nDaytime: {daytime[5]}\n    Chance of rain:  {daytime_rain[5]}%\nNighttime: {nighttime[5]}\n    Chance of rain:  {nighttime_rain[5]}%\n\n")
+
+        # day7 = (f"-------- {convert_date(date_ISO[6])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[6]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[6]))}\nDaytime: {daytime[6]}\n    Chance of rain:  {daytime_rain[6]}%\nNighttime: {nighttime[6]}\n    Chance of rain:  {nighttime_rain[6]}%\n\n")
+
+        # day8 = (f"-------- {convert_date(date_ISO[7])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[7]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[7]))}\nDaytime: {daytime[7]}\n    Chance of rain:  {daytime_rain[7]}%\nNighttime: {nighttime[7]}\n    Chance of rain:  {nighttime_rain[7]}%\n\n")
+
+        
     
         
         #  """Converts raw weather data into meaningful text.
@@ -168,6 +194,9 @@ def process_weather(forecast_file):
         # """
 
         alldays = summary + day1 + day2 + day3 + day4 + day5
+
+        # + day6 + day7 + day8
+        
 
         return alldays
 
