@@ -96,40 +96,6 @@ with open("data/forecast_8days.json") as json_file:
     
 
     counter = 0
-    minrealfeel = []
-    while counter < len(day_data):
-        counter += 1
-        for days in day_data:
-            for dates in days:
-                for categories in dates:
-                        if categories == "RealFeelTemperature":
-                            for temp in dates[categories]:
-                                if temp == "Minimum":
-                                    for values in dates[categories][temp]:
-                                        if values == "Value":
-                                            attach = dates[categories][temp][values]
-                                            minrealfeel.append(attach)
-    # print(minrealfeel)
-
-
-    counter = 0
-    minrealfeelshade = []
-    while counter < len(day_data):
-        counter += 1
-        for days in day_data:
-            for dates in days:
-                for categories in dates:
-                        if categories == "RealFeelTemperatureShade":
-                            for temp in dates[categories]:
-                                if temp == "Minimum":
-                                    for values in dates[categories][temp]:
-                                        if values == "Value":
-                                            attach = dates[categories][temp][values]
-                                            minrealfeelshade.append(attach)
-    # print(minrealfeelshade)
-
-
-    counter = 0
     formatted_mintemps = []
     while counter < len(day_data):
         counter += 1
@@ -263,7 +229,7 @@ with open("data/forecast_8days.json") as json_file:
     for x in summary:
         print(x)
 
-    
+
 
 
 
