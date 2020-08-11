@@ -210,40 +210,42 @@ def process_weather(forecast_file):
 
         dailysummary = []
         for x in range(len(date_ISO)): 
-            l1 = f"-------- {date_ISO[x]} --------"
+            l1 = f"-------- {date_ISO[x]} --------\n"
             dailysummary.append(l1)
-            l2 = f"Minimum Temperature: {formatted_mintemps[x]}"
+            l2 = f"Minimum Temperature: {formatted_mintemps[x]}\n"
             dailysummary.append(l2)
-            l3 = f"Maximum Temperature: {formatted_maxtemps[x]}"
+            l3 = f"Maximum Temperature: {formatted_maxtemps[x]}\n"
             dailysummary.append(l3)
-            l4 = f"Daytime: {daytime[x]}"
+            l4 = f"Daytime: {daytime[x]}\n"
             dailysummary.append(l4)
-            l5 = f"    Chance of rain:  {daytime_rain[x]}%"
+            l5 = f"    Chance of rain:  {daytime_rain[x]}%\n"
             dailysummary.append(l5)
-            l6 = f"Nighttime: {nighttime[x]}"
+            l6 = f"Nighttime: {nighttime[x]}\n"
             dailysummary.append(l6)
-            l7 = f"    Chance of rain:  {nighttime_rain[x]}%"
+            l7 = f"    Chance of rain:  {nighttime_rain[x]}%\n"
             dailysummary.append(l7)
+            l8 = f"\n"
+            dailysummary.append(l8)
         # print(dailysummary)
 
-        dailyoutput = "\n".join(dailysummary)
+        dailyoutput = "".join(dailysummary)
         finaloutput = summary + dailyoutput
 
-        return finaloutput + "\n"
+        return finaloutput
 
 
-        if __name__ == "__main__":
-            print(process_weather("data/forecast_5days_a.json"))
+if __name__ == "__main__":
+    print(process_weather("data/forecast_5days_a.json"))
 
 
-        """Converts raw weather data into meaningful text.
+        # """Converts raw weather data into meaningful text.
 
-        Args:
-            forecast_file: A string representing the file path to a file
-                containing raw weather data.
-        Returns:∫
-            A string containing the processed and formatted weather data.
-        """
+        # Args:
+        #     forecast_file: A string representing the file path to a file
+        #         containing raw weather data.
+        # Returns:∫
+        #     A string containing the processed and formatted weather data.
+        # """
 
     
 
