@@ -67,14 +67,17 @@ def process_weather(forecast_file):
 
         counter = 0 
         date_ISO = []
-            while counter < len(day_data):
-                counter += 1 
-                for days in day_data:
-                    for dates in days:
-                        for categories in dates:
-                            if categories == "Date":
-                                attach = convert_date(dates[categories])
-                                date_ISO.append(attach)
+        while counter < len(day_data):
+            counter += 1
+            for days in day_data:
+                # print(days) prints all days
+                for dates in days:
+                    # print(dates) prints days separately
+                    for categories in dates:
+                        # relates to key in date dictionary
+                        if categories == "Date":
+                            attach = convert_date(dates[categories])
+                            date_ISO.append(attach) 
 
 
         counter = 0
@@ -89,7 +92,7 @@ def process_weather(forecast_file):
                                     if temp == "Minimum":
                                         for values in dates[categories][temp]:
                                             if values == "Value":
-                                                attach = format_temperature(convert_f_to_c(dates[categories][temp][values]))
+                                                attach = dates[categories][temp][values]
                                                 min_temps.append(attach)
 
         
@@ -109,13 +112,12 @@ def process_weather(forecast_file):
             for temps in min_temps:
                 convert = format_temperature(convert_f_to_c(temps))
                 formatted_mintemps.append(convert)
-        # print(formatted_mintemps)
 
 
         counter = 0
         max_temps = []
         while counter < len(day_data):
-            counter += 1 
+            counter += 1
             for days in day_data:
                 for dates in days:
                     for categories in dates:
@@ -124,12 +126,11 @@ def process_weather(forecast_file):
                                     if temp == "Maximum":
                                         for values in dates[categories][temp]:
                                             if values == "Value":
-                                                attach = format_temperature(convert_f_to_c(dates[categories][temp][values]))
+                                                attach = dates[categories][temp][values]
                                                 max_temps.append(attach)
 
 
         hightempdic = {}
-
         keys = date_ISO
         values = max_temps
         zip_obj = zip(keys, values)
@@ -203,27 +204,39 @@ def process_weather(forecast_file):
                                         nighttime_rain.append(attach)
 
 
-        summary = (f"{len(min_temps)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on {convert_date(MinDictVal)}.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on {convert_date(MaxDictVal)}.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is {format_temperature(convert_f_to_c(calculate_mean(sum(max_temps),len(max_temps))))}.\n\n")
+        summary = f"{len(date_ISO)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on {MinDictVal}.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on {MaxDictVal}.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is {format_temperature(convert_f_to_c(calculate_mean(sum(max_temps),len(max_temps))))}.\n\n"
+        # print(summary)
 
-        day1 = (f"-------- {convert_date(date_ISO[0])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[0]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[0]))}\nDaytime: {daytime[0]}\n    Chance of rain:  {daytime_rain[0]}%\nNighttime: {nighttime[0]}\n    Chance of rain:  {nighttime_rain[0]}%\n\n")
 
-        day2 = (f"-------- {convert_date(date_ISO[1])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[1]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[1]))}\nDaytime: {daytime[1]}\n    Chance of rain:  {daytime_rain[1]}%\nNighttime: {nighttime[1]}\n    Chance of rain:  {nighttime_rain[1]}%\n\n")
+        dailysummary = []
+        for x in range(len(date_ISO)): 
+            l1 = f"-------- {date_ISO[x]} --------"
+            dailysummary.append(l1)
+            l2 = f"Minimum Temperature: {formatted_mintemps[x]}"
+            dailysummary.append(l2)
+            l3 = f"Maximum Temperature: {formatted_maxtemps[x]}"
+            dailysummary.append(l3)
+            l4 = f"Daytime: {daytime[x]}"
+            dailysummary.append(l4)
+            l5 = f"    Chance of rain:  {daytime_rain[x]}%"
+            dailysummary.append(l5)
+            l6 = f"Nighttime: {nighttime[x]}"
+            dailysummary.append(l6)
+            l7 = f"    Chance of rain:  {nighttime_rain[x]}%"
+            dailysummary.append(l7)
+        # print(dailysummary)
 
-        day3 = (f"-------- {convert_date(date_ISO[2])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[2]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[2]))}\nDaytime: {daytime[2]}\n    Chance of rain:  {daytime_rain[2]}%\nNighttime: {nighttime[2]}\n    Chance of rain:  {nighttime_rain[2]}%\n\n")
+        dailyoutput = "\n".join(dailysummary)
+        finaloutput = summary + dailyoutput
 
-        day4 = (f"-------- {convert_date(date_ISO[3])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[3]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[3]))}\nDaytime: {daytime[3]}\n    Chance of rain:  {daytime_rain[3]}%\nNighttime: {nighttime[3]}\n    Chance of rain:  {nighttime_rain[3]}%\n\n")
+        return finaloutput + "\n"
 
-        day5 = (f"-------- {convert_date(date_ISO[4])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[4]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[4]))}\nDaytime: {daytime[4]}\n    Chance of rain:  {daytime_rain[4]}%\nNighttime: {nighttime[4]}\n    Chance of rain:  {nighttime_rain[4]}%\n\n")
 
-        # day6 = (f"-------- {convert_date(date_ISO[5])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[5]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[5]))}\nDaytime: {daytime[5]}\n    Chance of rain:  {daytime_rain[5]}%\nNighttime: {nighttime[5]}\n    Chance of rain:  {nighttime_rain[5]}%\n\n")
+        if __name__ == "__main__":
+            print(process_weather("data/forecast_5days_a.json"))
 
-        # day7 = (f"-------- {convert_date(date_ISO[6])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[6]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[6]))}\nDaytime: {daytime[6]}\n    Chance of rain:  {daytime_rain[6]}%\nNighttime: {nighttime[6]}\n    Chance of rain:  {nighttime_rain[6]}%\n\n")
 
-        # day8 = (f"-------- {convert_date(date_ISO[7])} --------\nMinimum Temperature: {format_temperature(convert_f_to_c(min_temps[7]))}\nMaximum Temperature: {format_temperature(convert_f_to_c(max_temps[7]))}\nDaytime: {daytime[7]}\n    Chance of rain:  {daytime_rain[7]}%\nNighttime: {nighttime[7]}\n    Chance of rain:  {nighttime_rain[7]}%\n\n")
-
-        
-
-         """Converts raw weather data into meaningful text.
+        """Converts raw weather data into meaningful text.
 
         Args:
             forecast_file: A string representing the file path to a file
@@ -232,17 +245,5 @@ def process_weather(forecast_file):
             A string containing the processed and formatted weather data.
         """
 
-        alldays = summary + day1 + day2 + day3 + day4 + day5
-
-        # + day6 + day7 + day8
-        
-
-        return alldays
-
-        if __name__ == "__main__":
-            print(process_weather("data/forecast_5days_a.json"))
-
-
-
-
+    
 
