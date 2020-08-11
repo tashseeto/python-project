@@ -60,74 +60,61 @@ def process_weather(forecast_file):
         forecast = json.load(json_file)
 
         day_data = []
-        for category, categorydata in forecast.items():
-            if category == "DailyForecasts":
-                day_data.append(categorydata)
+        day_data.append(forecast["DailyForecasts"])
 
 
-        counter = 0 
         date_ISO = []
-        while counter < len(day_data):
-            counter += 1
-            for days in day_data:
-                # print(days) prints all days
-                for dates in days:
-                    # print(dates) prints days separately
-                    for categories in dates:
-                        # relates to key in date dictionary
-                        if categories == "Date":
-                            attach = convert_date(dates[categories])
-                            date_ISO.append(attach) 
+        for days in day_data:
+            for dates in days:
+                categories = dates["Date"]
+                attach = convert_date(categories)
+                date_ISO.append(attach) 
 
 
-        counter = 0
         min_temps = []
-        while counter < len(day_data):
-            counter += 1 
-            for days in day_data:
-                for dates in days:
-                    for categories in dates:
-                            if categories == "Temperature":
-                                for temp in dates[categories]:
-                                    if temp == "Minimum":
+        max_temps = []
+        daytime = []
+        daytime_rain = []
+        nighttime = []
+        nighttime_rain = [] 
+        for days in day_data:
+            for dates in days:
+                for categories in dates:
+                        if categories == "Temperature":
+                            for temp in dates[categories]:
+                                if temp == "Minimum":
+                                    for values in dates[categories][temp]:
+                                        if values == "Value":
+                                            attach = dates[categories][temp][values]
+                                            min_temps.append(attach)
+                                if temp == "Maximum":
                                         for values in dates[categories][temp]:
                                             if values == "Value":
                                                 attach = dates[categories][temp][values]
-                                                min_temps.append(attach)
-
+                                                max_temps.append(attach)
+                        if categories == "Day":
+                            for key in dates[categories]:
+                                if key == "LongPhrase":
+                                    attach = dates[categories][key]
+                                    daytime.append(attach)
+                                if key == "RainProbability":
+                                    attach = dates[categories][key]
+                                    daytime_rain.append(attach)
+                        if categories == "Night":
+                            for key in dates[categories]:
+                                if key == "LongPhrase":
+                                    attach = dates[categories][key]
+                                    nighttime.append(attach)
+                                if key == "RainProbability":
+                                    attach = dates[categories][key]
+                                    nighttime_rain.append(attach)
         
         lowtempdic = {}         
-
         keys = date_ISO
         values = min_temps
         zip_obj = zip(keys, values)
         lowtempdic = dict(zip_obj)
         MinDictVal = min(lowtempdic, key=lowtempdic.get)
-
-
-        counter = 0
-        formatted_mintemps = []
-        while counter < len(day_data):
-            counter += 1
-            for temps in min_temps:
-                convert = format_temperature(convert_f_to_c(temps))
-                formatted_mintemps.append(convert)
-
-
-        counter = 0
-        max_temps = []
-        while counter < len(day_data):
-            counter += 1
-            for days in day_data:
-                for dates in days:
-                    for categories in dates:
-                            if categories == "Temperature":
-                                for temp in dates[categories]:
-                                    if temp == "Maximum":
-                                        for values in dates[categories][temp]:
-                                            if values == "Value":
-                                                attach = dates[categories][temp][values]
-                                                max_temps.append(attach)
 
 
         hightempdic = {}
@@ -138,70 +125,16 @@ def process_weather(forecast_file):
         MaxDictVal = max(hightempdic, key=hightempdic.get)
 
 
-        counter = 0
+        formatted_mintemps = []
+        for temps in min_temps:
+            convert = format_temperature(convert_f_to_c(temps))
+            formatted_mintemps.append(convert)
+
+
         formatted_maxtemps = []
-        while counter < len(day_data):
-            counter += 1
-            for temps in max_temps:
-                convert = format_temperature(convert_f_to_c(temps))
-                formatted_maxtemps.append(convert)
-        # print(formatted_maxtemps)
-
-
-        counter = 0
-        daytime = []         
-        while counter < len(day_data):
-            counter += 1 
-            for days in day_data:
-                for dates in days:
-                    for categories in dates:
-                            if categories == "Day":
-                                for key in dates[categories]:
-                                    if key == "LongPhrase":
-                                        attach = dates[categories][key]
-                                        daytime.append(attach)
-
-
-        counter = 0
-        daytime_rain = []
-        while counter < len(day_data):
-            counter += 1           
-            for days in day_data:
-                for dates in days:
-                    for categories in dates:
-                            if categories == "Day":
-                                for key in dates[categories]:
-                                    if key == "RainProbability":
-                                        attach = dates[categories][key]
-                                        daytime_rain.append(attach)
-
-
-        counter = 0
-        nighttime = []
-        while counter < len(day_data):
-            counter += 1 
-            for days in day_data:
-                for dates in days:
-                    for categories in dates:
-                            if categories == "Night":
-                                for key in dates[categories]:
-                                    if key == "LongPhrase":
-                                        attach = dates[categories][key]
-                                        nighttime.append(attach)
-
-
-        counter = 0
-        nighttime_rain = []
-        while counter < len(day_data):
-            counter += 1              
-            for days in day_data:
-                for dates in days:
-                    for categories in dates:
-                            if categories == "Night":
-                                for key in dates[categories]:
-                                    if key == "RainProbability":
-                                        attach = dates[categories][key]
-                                        nighttime_rain.append(attach)
+        for temps in max_temps:
+            convert = format_temperature(convert_f_to_c(temps))
+            formatted_maxtemps.append(convert)
 
 
         summary = f"{len(date_ISO)} Day Overview\n    The lowest temperature will be {format_temperature(convert_f_to_c(min(min_temps)))}, and will occur on {MinDictVal}.\n    The highest temperature will be {format_temperature(convert_f_to_c(max(max_temps)))}, and will occur on {MaxDictVal}.\n    The average low this week is {format_temperature(convert_f_to_c(calculate_mean(sum(min_temps),len(min_temps))))}.\n    The average high this week is {format_temperature(convert_f_to_c(calculate_mean(sum(max_temps),len(max_temps))))}.\n\n"
