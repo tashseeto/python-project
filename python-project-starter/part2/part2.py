@@ -1,4 +1,5 @@
 import plotly.express as px
+
 from datetime import datetime
 
 
@@ -17,6 +18,7 @@ def convert_f_to_c(temp_in_farenheit):
     temp_in_farenheit = round(temp_in_farenheit, 1)
     return(temp_in_farenheit)
     
+
 
 import json
 with open("data/forecast_5days_a.json") as json_file:
@@ -83,6 +85,7 @@ df = {
 "Dates": date_ISO
 }
 
+
 fig = px.line(
 df,
 y=["Minimum Temperature", "Maximum Temperature"],
@@ -96,6 +99,7 @@ fig.show()
 
 
 
+
 df = {
 "Minimum Temperature": min_temps,
 "Minimum Real Feel": minrealfeel,
@@ -103,58 +107,17 @@ df = {
 "Dates": date_ISO
 }
 
-fig = px.line(
-df,
-y=["Minimum Temperature","Minimum Real Feel","Minimum Real Feel Shade"],
-x="Dates",
-title=f"{len(date_ISO)} day forecast minimum, minimum real free and minimum real free shade temperatures")
+fig = px.bar(df, x="Dates", y=["Minimum Temperature", "Minimum Real Feel", "Minimum Real Feel Shade"],
+            barmode='group',
+            height=600,
+            )
 
 fig.update_layout(
-yaxis_title="Temperature (°C)")
+yaxis_title="Temperature (°C)",
+title=f"{len(date_ISO)} day forecast - Minimum, Minimum real feel and Minimum real feel shade temperatures",
+xaxis_tickfont_size=14)
+
 
 
 fig.show()
 
-
-
-# def min_data(data):
-#     counter = 0
-#     min_data_list = []
-#     while counter < (len(data)):
-#         min_temp = (data[counter]["Temperature"]["Minimum"]["Value"])
-#         min_data_list.append(format_temperature(convert_f_to_c(min_temp)))
-#         counter = counter + 1
-#     return min_data_list
-
-# print(min_data_list)
-# min_list = (min_data(data))
-
-
-
-# df = {
-#     "Minimum": min_list,
-#     "Minimum Real Feel": real_feel,
-#     "Minimum Real Feel Shade" : real_feel_shade,
-#     "Date": dates
-# }
-
-
-
-# fig = px.line(
-#     df,
-#     y="our_data",
-#     x="columns", 
-#     title="example")
-
-# fig.show()
-
-# fig = px.line(
-# df,
-# y=["Minimum Temperature","Maxmium Temperature"],
-# x="Dates",
-# title=f"{len(min_temps)} day forecast minimum and maximum temperatures")
-
-# fig.show()
-
-# fig.write_html("cats.html")
-# the above used if fig.show() doesn't work
